@@ -9,4 +9,4 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[MODULE_NAME](MODULE_NAME/) | 14.0.0.0.0 | [![Vertel AB](https://vertel.se/web/image/30659-8d658de2/Vertelsvg_Vit.png?px=150)](https://vertel.se/) | SUMMERY OF MODULE
+[MODULE_NAME](MODULE_NAME/) | 14.0.0.0.0 | [![Vertel AB](https://vertel.se/web/image/30659-8d658de2/Vertelsvg_Vit.png?size=150)](https://vertel.se/) | SUMMERY OF MODULE
