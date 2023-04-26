@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="create_project_task_from_ticket_action" model="ir.actions.server">
+            <field name="name">Eskalera</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="binding_model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.create_project_task_from_ticket()</field>
+        </record>
+    </data>
+</odoo>
