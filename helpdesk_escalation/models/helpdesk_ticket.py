@@ -9,8 +9,8 @@ class HelpdeskTicket(models.Model):
     @api.model
     def create_project_task_from_ticket(self):
         
-        if self.task_id : raise UserError("A task already exists for this ticket. Remove the assigned 'Task' to create a new task")
-        if not self.project_id: raise UserError("You must allocate ticket to a 'Project' in order to convert it to a task.")
+        if self.task_id : raise UserError(_("A task already exists for this ticket. Remove the assigned 'Task' to create a new task"))
+        if not self.project_id: raise UserError(_("You must assign a 'Project' to the ticket in order to convert it to a task."))
         
         
         # Define models used in this function
@@ -31,9 +31,9 @@ class HelpdeskTicket(models.Model):
         # Prepare values for the new project.task
         new_task_values = {
             'name': self.number + task_name_extra,
-            'description': ticket_description, # '\n' + email,
+            'description': ticket_description,
             'project_id': project_id,
-            'date_deadline': False, #fields.Date.today()
+            'date_deadline': False,
             'kanban_state': 'normal',
             'company_id': company_id,
             'partner_id' : self.partner_id.id,
