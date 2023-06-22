@@ -37,7 +37,7 @@ class HelpdeskTicket(models.Model):
             'kanban_state': 'normal',
             'company_id': company_id,
             'partner_id' : self.partner_id.id,
-            'user_id' : self.user_id.id,
+            'user_ids' : [(6, 0, [self.user_id.id])],
             'priority' : "1" if self.priority == "3" else "0"
         }
 
