@@ -57,7 +57,7 @@
     'repository': 'https://github.com/vertelab/odoo-helpdesk',
     'images': ['/static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
-    'depends': ['helpdesk_mgmt', 'project'],
+    'depends': ['helpdesk_mgmt', 'helpdesk_mgmt_project', 'project'],
     'data': [
         'data/server_actions.xml',
         ],
