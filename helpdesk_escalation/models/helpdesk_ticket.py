@@ -11,7 +11,7 @@ class HelpdeskTicket(models.Model):
         
         if self.task_id : raise UserError(_("A task already exists for this ticket. Remove the assigned 'Task' to create a new task"))
         if not self.project_id: raise UserError(_("You must assign a 'Project' to the ticket in order to convert it to a task."))
-        
+        if not self.user_id: raise UserError("You must assign an 'Assigned User' to the helpdesk ticket to escalate it.")
         
         # Define models used in this function
         ProjectTask = self.env['project.task']
