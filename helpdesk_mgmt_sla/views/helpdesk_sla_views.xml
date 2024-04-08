@@ -59,7 +59,7 @@
                                 options="{'model': 'helpdesk.ticket', 'in_dialog': True}"
                             />
                         </group>
-                        <group string="Target">
+                        <group name="target" string="Target">
                             <label for="days" string="Reach In" />
                             <div class="o_row">
                                 <field name="days" />
