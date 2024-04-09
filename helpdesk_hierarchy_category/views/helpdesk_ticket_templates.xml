@@ -1,0 +1,20 @@
+<odoo>
+    <template id="portal_create_ticket_extended" inherit_id="helpdesk_mgmt.portal_create_ticket">
+        <xpath expr="//t[@t-call='portal.portal_layout']/form[@action='/submitted/ticket']/div[hasclass('form-group')][2]//select[@name='category']" position="replace">
+            <select
+                class="form-control"
+                id="category"
+                name="category"
+                t-att-required="ticket_category_id_required"
+            >
+                <option value="" />
+                <t t-foreach="categories" t-as="cat">
+                    <option t-attf-value="#{cat.id}">
+                        <t t-esc="cat.display_name" />
+                    </option>
+                </t>
+            </select>
+        </xpath>
+
+    </template>
+</odoo>
