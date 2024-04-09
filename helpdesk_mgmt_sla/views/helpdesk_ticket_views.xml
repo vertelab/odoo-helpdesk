@@ -31,11 +31,29 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='channel_id']" position="after">
                 <field name="team_sla" invisible="1" />
+                <field name="knowledge_id"/>
+                <field name="forum_id"/>
+                <field name="sla_time_to_assigned" widget='float_time'/>
+                <field name="sla_time_to_ongoing" widget='float_time'/>
+                <field name="sla_time_to_done" widget='float_time'/>
                 <field
                     name="sla_deadline"
                     attrs="{'invisible': [('team_sla', '=', False)]}"
                 />
             </xpath>
+        </field>
+    </record>
+    
+    
+        <record id="helpdesk_mgmt_view_helpdesk_ticket_stage_form_inherit" model="ir.ui.view">
+        <field name="name">helpdesk_mgmt_view_helpdesk_ticket_stage_form_inherit</field>
+        <field name="model">helpdesk.ticket.stage</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_ticket_stage_form" />
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+           <field name="unattended" position="after">
+               <field name="sla_stage_type"/>
+           </field>
         </field>
     </record>
 </odoo>

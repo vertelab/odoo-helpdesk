@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "category": "After-Sales",
     "version": "16.0.2.0.1",
-    "depends": ["base", "helpdesk_mgmt", "resource"],
+    "depends": ["base", "helpdesk_mgmt", "resource", "document_knowledge", "website_forum"],
     "data": [
         "data/helpdesk_sla_cron.xml",
         "security/ir.model.access.csv",
