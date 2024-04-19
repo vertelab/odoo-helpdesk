@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+         <record id="helpdesk_sla_template_reminder" model="mail.template">
+            <field name="name">Helpdesk SLA: Reminder</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="subject">{{ object.name }} - Reminder</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted or '') }}</field>
+            <field name="email_to">{{ object.user_id.email or object.team_id.user_id.email or False }}</field>
+            <field name="partner_to">{{ object.user_id.partner_id.id or object.team_id.user_id.partner_id.id or False }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="body_html" type="html">
+<div>
+    <p>
+        Hello <t t-out="object.user_id.name or object.team_id.user_id.name or ''"/>,<br/><br/>
+        This is a reminder for the below ticket :
+    </p>
+    <div style="text-align: center; padding: 16px 0px 16px 0px;">
+        <a t-attf-href=""
+            style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">
+            View
+        </a>
+    </div>
+    <br/>
+    Thank you,
+    <t t-if="object.user_id.signature">
+        <br />
+        <t t-out="object.user_id.signature or ''">--<br/>Mitchell Admin</t>
+    </t>
+</div>
+            </field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

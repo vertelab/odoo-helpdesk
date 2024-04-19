@@ -16,7 +16,8 @@ class CalendarEventsManager(models.AbstractModel):
     def _send_reminder_ticket(self):
         # Executed via cron
         tickets_by_alarm = self._get_tickets_by_alarm_to_notify('email')
-        logging.warning(f"{tickets_by_alarm=}")
+        # {6: [8], 7: [8], 1: [15, 10, 9, 2], 3: [15, 10, 9, 2]}
+        print(f"{tickets_by_alarm=}")
         if not tickets_by_alarm:
             return
 
@@ -24,18 +25,16 @@ class CalendarEventsManager(models.AbstractModel):
             set(ticket_id for ticket_ids in tickets_by_alarm.values() for ticket_id in ticket_ids)
         )
         tickets = self.env['helpdesk.ticket'].browse(helpdesk_ticket_ids)
-        team_members = tickets.team_id.user_ids.mapped('partner_id')
-        alarms = self.env['calendar.alarm'].browse(tickets_by_alarm.keys())
-        for alarm in alarms:
-            alarm_members = team_members.filtered(lambda attendee: attendee.event_id.id in tickets_by_alarm[alarm.id])
-            logging.warning(f"alarm_members {alarm_members=}")
-            # alarm_members.with_context(
-            #     mail_notify_force_send=True,
-            #     calendar_template_ignore_recurrence=True
-            # )._send_mail_to_attendees(
-            #     alarm.mail_template_id,
-            #     force_send=True
-            # )
+
+        usable_alarms = self.env['calendar.alarm'].browse(tickets_by_alarm.keys()).filtered(
+            lambda alarm: alarm.mail_template_id)
+
+        for usable_alarm in usable_alarms:
+            tickets_to_alarm = tickets.filtered(lambda ticket: ticket.id in tickets_by_alarm[usable_alarm.id])
+            print(tickets_to_alarm)
+
+            for ticket_to_alarm in tickets_to_alarm:
+                usable_alarm.mail_template_id.send_mail(ticket_to_alarm.id, force_send=True)
 
     def _get_tickets_by_alarm_to_notify(self, alarm_type):
         """
@@ -56,15 +55,12 @@ class CalendarEventsManager(models.AbstractModel):
                 ON "ticket"."id" = "ticket_alarm_rel"."helpdesk_ticket_id"
               JOIN "calendar_alarm" AS "alarm"
                 ON "ticket_alarm_rel"."calendar_alarm_id" = "alarm"."id"
-             WHERE (
-                   "alarm"."alarm_type" = %s
-               AND "ticket"."active"
-             )''', [alarm_type])
+            ''')
 
         tickets_by_alarm = {}
 
-        for ticket in self.env['helpdesk.ticket'].search([]):
-            logging.warning(f"{ticket.sla_deadline}")
+        # for ticket in self.env['helpdesk.ticket'].search([]):
+        #     logging.warning(f"{ticket.sla_deadline}")
 
         for alarm_id, tickets_id in self.env.cr.fetchall():
             logging.warning(f"{alarm_id=} {tickets_id=}")

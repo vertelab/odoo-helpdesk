@@ -11,6 +11,7 @@
     "depends": ["base", "helpdesk_mgmt_sla", "calendar"],
     "data": [
         "data/ticket_helpdesk_sla_cron.xml",
+        "data/mail_template_data.xml",
         "views/helpdesk_sla_views.xml",
         "views/helpdesk_ticket.xml",
         #"views/helpdesk_ticket_team_views.xml",
