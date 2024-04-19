@@ -6,17 +6,10 @@ from odoo import fields, models
 
 class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
-
+        
     alarm_ids = fields.Many2many(
-        'calendar.alarm', 'calendar_alarm_calendar_event_rel',
+        'calendar.alarm', 'ticket_alarm_rel',
         string='Reminders', ondelete="restrict",
-        help="Notifications sent to all teammembers to remind of the SLA.")
+        help="Notifications sent to all teammembers to remind of the SLA.", column1="helpdesk_ticket_id", column2="calendar_alarm_id")
 
-    team_sla = fields.Boolean(string="Team SLA", compute="_compute_team_sla")
-    sla_expired = fields.Boolean(string="SLA expired")
-    sla_deadline = fields.Datetime(string="SLA deadline")
-
-    def _compute_team_sla(self):
-        for rec in self:
-            rec.team_sla = rec.team_id.use_sla
     
