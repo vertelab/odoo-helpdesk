@@ -10,7 +10,9 @@
     "version": "16.0.2.0.1",
     "depends": ["base", "helpdesk_mgmt_sla", "calendar"],
     "data": [
+        "data/ticket_helpdesk_sla_cron.xml",
         "views/helpdesk_sla_views.xml",
+        "views/helpdesk_ticket.xml",
         #"views/helpdesk_ticket_team_views.xml",
     ],
 }

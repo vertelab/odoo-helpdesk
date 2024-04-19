@@ -10,6 +10,7 @@ class HelpdeskTicket(models.Model):
     alarm_ids = fields.Many2many(
         'calendar.alarm', 'ticket_alarm_rel',
         string='Reminders', ondelete="restrict",
-        help="Notifications sent to all teammembers to remind of the SLA.", column1="helpdesk_ticket_id", column2="calendar_alarm_id")
+        help="Notifications sent to all team members to remind of the SLA.",
+        column1="helpdesk_ticket_id", column2="calendar_alarm_id")
 
     

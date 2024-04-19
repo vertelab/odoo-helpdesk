@@ -54,41 +54,44 @@ class HelpdeskSla(models.Model):
             for sla in slas:
                 if sla._applies_for(ticket):
                     sla.check_ticket_sla(ticket)
+                    if ticket.team_id in sla.team_ids and ticket.stage_id in sla.stage_ids:
+                        ticket.alarm_ids = sla.alarm_ids
                     break
 
-    def check_ticket_sla(self, tickets):
-        for ticket in tickets:
-            deadline = ticket.create_date
-            working_calendar = ticket.team_id.resource_calendar_id
+    def check_ticket_sla(self, ticket):
+        # print(ticket)
+        # for ticket in tickets:
+        deadline = ticket.create_date
+        working_calendar = ticket.team_id.resource_calendar_id
 
-            if self.days > 0:
-                deadline = working_calendar.plan_days(
-                    self.days + 1, deadline, compute_leaves=True
-                )
-                create_date = ticket.create_date
-
-                deadline = deadline.replace(
-                    hour=create_date.hour,
-                    minute=create_date.minute,
-                    second=create_date.second,
-                    microsecond=create_date.microsecond,
-                )
-
-                deadline_for_working_cal = working_calendar.plan_hours(0, deadline)
-
-                if (
-                    deadline_for_working_cal
-                    and deadline.day < deadline_for_working_cal.day
-                ):
-                    deadline = deadline.replace(
-                        hour=0, minute=0, second=0, microsecond=0
-                    )
-
-            deadline = working_calendar.plan_hours(
-                self.hours, deadline, compute_leaves=True
+        if self.days > 0:
+            deadline = working_calendar.plan_days(
+                self.days + 1, deadline, compute_leaves=True
             )
-            ticket.sla_deadline = deadline
-            if ticket.sla_deadline < datetime.today().now():
-                ticket.sla_expired = True
-            else:
-                ticket.sla_expired = False
+            create_date = ticket.create_date
+
+            deadline = deadline.replace(
+                hour=create_date.hour,
+                minute=create_date.minute,
+                second=create_date.second,
+                microsecond=create_date.microsecond,
+            )
+
+            deadline_for_working_cal = working_calendar.plan_hours(0, deadline)
+
+            if (
+                deadline_for_working_cal
+                and deadline.day < deadline_for_working_cal.day
+            ):
+                deadline = deadline.replace(
+                    hour=0, minute=0, second=0, microsecond=0
+                )
+
+        deadline = working_calendar.plan_hours(
+            self.hours, deadline, compute_leaves=True
+        )
+        ticket.sla_deadline = deadline
+        if ticket.sla_deadline < datetime.today().now():
+            ticket.sla_expired = True
+        else:
+            ticket.sla_expired = False

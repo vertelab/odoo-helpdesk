@@ -71,13 +71,13 @@
                             </div>
                         </group>
                     </group>
-                    <group string="Description">
-                        <field
-                            name="note"
-                            placeholder="Description of the policy..."
-                            nolabel="1"
-                        />
-                    </group>
+<!--                    <group string="Description">-->
+                    <field
+                        name="note"
+                        placeholder="Description of the policy..."
+                        nolabel="1"
+                    />
+<!--                    </group>-->
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" groups="base.group_user" />
