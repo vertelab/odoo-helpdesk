@@ -16,8 +16,7 @@ class CalendarEventsManager(models.AbstractModel):
     def _send_reminder_ticket(self):
         # Executed via cron
         tickets_by_alarm = self._get_tickets_by_alarm_to_notify('email')
-        # {6: [8], 7: [8], 1: [15, 10, 9, 2], 3: [15, 10, 9, 2]}
-        print(f"{tickets_by_alarm=}")
+        logging.warning(f"{tickets_by_alarm=}")  # {6: [8], 7: [8], 1: [15, 10, 9, 2], 3: [15, 10, 9, 2]}
         if not tickets_by_alarm:
             return
 
@@ -31,7 +30,6 @@ class CalendarEventsManager(models.AbstractModel):
 
         for usable_alarm in usable_alarms:
             tickets_to_alarm = tickets.filtered(lambda ticket: ticket.id in tickets_by_alarm[usable_alarm.id])
-            print(tickets_to_alarm)
 
             for ticket_to_alarm in tickets_to_alarm:
                 usable_alarm.mail_template_id.send_mail(ticket_to_alarm.id, force_send=True)
@@ -50,20 +48,22 @@ class CalendarEventsManager(models.AbstractModel):
 
         self.env.cr.execute('''
             SELECT "alarm"."id", "ticket"."id"
-              FROM "helpdesk_ticket" AS "ticket"
-              JOIN "ticket_alarm_rel" AS "ticket_alarm_rel"
-                ON "ticket"."id" = "ticket_alarm_rel"."helpdesk_ticket_id"
-              JOIN "calendar_alarm" AS "alarm"
-                ON "ticket_alarm_rel"."calendar_alarm_id" = "alarm"."id"
-            ''')
+                FROM "helpdesk_ticket" AS "ticket"
+                JOIN "ticket_alarm_rel" AS "ticket_alarm_rel"
+                    ON "ticket"."id" = "ticket_alarm_rel"."helpdesk_ticket_id"
+                JOIN "calendar_alarm" AS "alarm"
+                    ON "ticket_alarm_rel"."calendar_alarm_id" = "alarm"."id"
+                WHERE (
+                   "alarm"."alarm_type" = %s
+                    AND "ticket"."active"
+                    AND "ticket"."sla_deadline" - CAST("alarm"."duration" || ' ' || "alarm"."interval" AS Interval) >= %s
+                    AND "ticket"."sla_deadline" - CAST("alarm"."duration" || ' ' || "alarm"."interval" AS Interval) < %s at time zone 'utc'
+                )''', [alarm_type, lastcall, datetime.now()]
+        )
 
         tickets_by_alarm = {}
 
-        # for ticket in self.env['helpdesk.ticket'].search([]):
-        #     logging.warning(f"{ticket.sla_deadline}")
-
         for alarm_id, tickets_id in self.env.cr.fetchall():
-            logging.warning(f"{alarm_id=} {tickets_id=}")
             tickets_by_alarm.setdefault(alarm_id, list()).append(tickets_id)
         return tickets_by_alarm
 
