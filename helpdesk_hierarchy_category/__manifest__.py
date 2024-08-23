@@ -29,13 +29,12 @@
     'description': """
     
     """,
+    'license': 'AGPL-3',
     'author': 'Vertel AB',
-    'programmers_note': ' ... ',
+    'maintainer': 'Vertel AB',
+    'contributor': '',
     'website': 'https://vertel.se/apps/odoo-helpdesk/helpdesk_hierarchy_category',
     'images': ['static/description/banner.png'], # 560x280 px.
-    'license': 'AGPL-3',
-    'contributor': '',
-    'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-helpdesk',
     # Any module necessary for this one to work correctly
     
