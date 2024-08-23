@@ -22,14 +22,23 @@
 # https://www.odoo.com/documentation/16.0/reference/module.html
 #
 {
-    'name': 'Helpdesk Hierarchy Category',
-    'version': '16.0.0.0',
+    'name': 'Helpdesk: Hierarchy Category',
+    'version': '0.1',
     'summary': 'Helpdesk Hierarchy Category',
     'category': 'Knowledge',
-    'description': """ """,
+    'description': """
+    
+    """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/',
+    'programmers_note': ' ... ',
+    'website': 'https://vertel.se/apps/odoo-helpdesk/helpdesk_hierarchy_category',
+    'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
+    'contributor': '',
+    'maintainer': 'Vertel AB',
+    'repository': 'https://github.com/vertelab/odoo-helpdesk',
+    # Any module necessary for this one to work correctly
+    
     'depends': ['helpdesk_mgmt'],
     'data': [
         'views/helpdesk_ticket_view.xml',
