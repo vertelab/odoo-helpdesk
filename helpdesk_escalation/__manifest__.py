@@ -21,7 +21,7 @@
 
 {
     'name': "Helpdesk: Escalation",
-    'version': '16.0',
+    'version': '0.1',
     'summary': 'Adds Ticket-to-Task Escalation',
     'description': 
         """
