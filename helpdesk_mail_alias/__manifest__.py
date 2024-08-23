@@ -20,14 +20,23 @@
 #
 ##############################################################################
 {
-    "name": "Helpdesk: Management, Mail Alias",
-    "summary": """Adds email alias support for helpdesk tickets """,
-    "version": "16.0.2.6.0",
-    "license": "AGPL-3",
-    "category": "Helpdesk",
-    "author": "Vertel AB",
-    "website": "https://github.com/vertelab/odoo-helpdesk",
-    "depends": ["helpdesk_mgmt"],
+    'name': 'Helpdesk: Management, Mail Alias',
+    'version': '2.6.0',
+    'summary': 'Adds email alias support for helpdesk tickets.',
+    'category': 'Helpdesk',
+    'description': """
+    
+    """,
+    'license': 'AGPL-3',
+    'author': 'Vertel AB',
+    'maintainer': 'Vertel AB',
+    'contributor': '',
+    'website': 'https://github.com/vertelab/odoo-helpdesk/helpdesk_mail_alias',
+    'images': ['static/description/banner.png'], # 560x280 px.
+    'repository': 'https://github.com/vertelab/odoo-helpdesk',
+    # Any module necessary for this one to work correctly
+    
+    'depends': ['helpdesk_mgmt'],
     "data": [],
     "demo": [],
     "application": True,
