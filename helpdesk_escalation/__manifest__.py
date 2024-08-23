@@ -53,10 +53,15 @@
             
             """,
     'category': 'Productivity',
-    'website': "https://vertel.se/apps/odoo-helpdesk/helpdesk_escalation",
-    'repository': 'https://github.com/vertelab/odoo-helpdesk',
-    'images': ['/static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
+    'author': 'Vertel AB',
+    'maintainer': 'Vertel AB',
+    'contributor': '',
+    'website': "https://vertel.se/apps/odoo-helpdesk/helpdesk_escalation",
+    'images': ['/static/description/banner.png'], # 560x280 px.
+    'repository': 'https://github.com/vertelab/odoo-helpdesk',
+    # Any module necessary for this one to work correctly
+    
     'depends': ['helpdesk_mgmt', 'helpdesk_mgmt_project', 'project'],
     'data': [
         'data/server_actions.xml',
