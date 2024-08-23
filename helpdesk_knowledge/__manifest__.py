@@ -21,16 +21,19 @@
 
 {
     'name': "Helpdesk: Knowledge",
-    'version': '16.0',
-    'summary': 'Adds link to Knowledge and forum',
-    'description': 
-           """ 
-            """,
+    'version': '0.1',
+    'summary': 'Adds link to Knowledge and forum.',
+    'description': """
+    Adds link to Knowledge and forum.
+    """,
     'category': 'Productivity',
+    'license': 'AGPL-3',
     'website': "https://vertel.se/apps/odoo-helpdesk/helpdesk_knowledge",
     'repository': 'https://github.com/vertelab/odoo-helpdesk',
     'images': ['/static/description/banner.png'], # 560x280 px.
-    'license': 'AGPL-3',
+    'repository': 'https://github.com/vertelab/odoo-helpdesk',
+    # Any module necessary for this one to work correctly
+    
     'depends': ['helpdesk_mgmt', 'document_knowledge','website_forum'],
     'data': [
         'data/server_actions.xml',
