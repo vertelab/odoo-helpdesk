@@ -22,14 +22,22 @@
 # https://www.odoo.com/documentation/16.0/reference/module.html
 #
 {
-    'name': 'Helpdesk Related Ticket',
-    'version': '16.0.0.0',
+    'name': 'Helpdesk: Related Ticket',
+    'version': '0.1',
     'summary': 'Helpdesk Related Ticket',
     'category': 'Helpdesk',
-    'description': """ """,
-    'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/',
+    'description': """
+    
+    """,
     'license': 'AGPL-3',
+    'author': 'Vertel AB',
+    'maintainer': 'Vertel AB',
+    'contributor': '',
+    'website': 'https://vertel.se/apps/odoo-helpdesk/helpdesk_related_ticket',
+    'images': ['static/description/banner.png'], # 560x280 px.
+    'repository': 'https://github.com/vertelab/odoo-helpdesk',
+    # Any module necessary for this one to work correctly
+    
     'depends': ['helpdesk_mgmt'],
     'data': [
         'views/helpdesk_ticket_templates.xml',
