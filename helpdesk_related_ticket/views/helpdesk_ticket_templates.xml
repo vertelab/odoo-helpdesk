@@ -1,0 +1,27 @@
+<odoo>
+    <template id="portal_create_ticket_extended" inherit_id="helpdesk_mgmt.portal_create_ticket">
+        <xpath expr="//t[@t-call='portal.portal_layout']/form[@action='/submitted/ticket']/div[hasclass('form-group')][4]" position="after">
+            <div class="form-group">
+                <label
+                    class="col-md-3 col-sm-4 control-label"
+                    for="related_ticket"
+                >Related Tickets</label>
+                <div class="col-md-7 col-sm-8">
+                    <select
+                        class="form-control"
+                        id="related_ticket"
+                        name="related_ticket"
+                    >
+                        <option value="" />
+                        <t t-foreach="related_ticket_ids" t-as="related_ticket">
+                            <option t-attf-value="#{related_ticket.id}">
+                                <t t-esc="related_ticket.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+</odoo>
