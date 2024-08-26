@@ -1,1 +1,1 @@
-git@github.com:chandni-serpentcs/helpdesk.git
+git@github.com:chandni-serpentcs/helpdesk.git -> 17.0-mig-helpdesk_mgmt
