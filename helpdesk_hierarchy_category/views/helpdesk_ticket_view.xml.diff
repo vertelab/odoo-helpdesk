@@ -1,0 +1,21 @@
+diff--git a/helpdesk_hierarchy_category/views/helpdesk_ticket_view.xml b/helpdesk_hierarchy_category/views/helpdesk_ticket_view.xml
+index3fc91c5..1f9c5e9 100644
+---a/helpdesk_hierarchy_category/views/helpdesk_ticket_view.xml
++++b/helpdesk_hierarchy_category/views/helpdesk_ticket_view.xml
+@@-1,15 +1,16 @@
+<odoo>
+    <data>
+        <record id="helpdesk_ticket_category_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.category.form</field>
+            <field name="model">helpdesk.ticket.category</field>
+            <field name="inherit_id" ref="helpdesk_mgmt.helpdesk_ticket_category_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="parent_id"/>
+                    <field name="display_name"/>
+                </field>
+            </field>
+        </record>
+    </data>
+-</odoo>\No newline at end of file
++</odoo>+\Nonewline at end of file
