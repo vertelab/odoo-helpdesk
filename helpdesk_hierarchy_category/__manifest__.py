@@ -27,7 +27,7 @@
     'summary': 'Helpdesk Hierarchy Category',
     'category': 'Knowledge',
     'description': """
-    
+    Adds a parent to a category and combine, their names.
     """,
     'license': 'AGPL-3',
     'author': 'Vertel AB',

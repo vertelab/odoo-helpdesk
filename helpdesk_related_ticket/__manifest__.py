@@ -27,7 +27,7 @@
     'summary': 'Helpdesk Related Ticket',
     'category': 'Helpdesk',
     'description': """
-    
+    This module makes it possible to, in the web form, create a connection to a previous helpdesk ticket.
     """,
     'license': 'AGPL-3',
     'author': 'Vertel AB',

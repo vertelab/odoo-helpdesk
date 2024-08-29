@@ -27,7 +27,7 @@
     'summary': 'Swedish translations for Helpdesk Management',
     'category': 'Helpdesk',
     'description': """
-    
+    Swedish translations for Helpdesk Management
     """,
     'license': 'AGPL-3',
     'author': 'Vertel AB',
