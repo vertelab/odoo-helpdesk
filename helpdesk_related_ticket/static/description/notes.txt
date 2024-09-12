@@ -1,12 +1,16 @@
 odoo-helpdesk / helpdesk_related_ticket
-2024-08-24
+2024-09-12
 
 Be aware of these!
 [project]/[module]/static/description/banner.png
 [project]/[module]/static/description/icon.png
 
-Icon: "life-ring"
-Icons may be found at: https://fontawesome.com/v5/cheatsheet
+Icon: "wrensh" (enclosed)
+https://fontawesome.com/v4/icon/wrench
+icon_wrench.png
+icon_wrench_50.png
+icon_wrench_50_neg.png
+
 
 Odoo banner: 560 x 280
 Odoo icon: 140 x 140
@@ -49,8 +53,11 @@ ls | wc -l
 grep -sR "'website':" */*__.py | tr "'" " "
 
 Find the latest project:
-grep -r "2024-08-*" odoo-*/*/static/description/notes.txt
-grep -r "2024-08-*" */static/description/notes.txt
+grep -r "2024-09-*" odoo-*/*/static/description/notes.txt
+grep -r "2024-09-*" */static/description/notes.txt
 
+Unexpected errors sometimes occurs, then set the correct permissions!
+sudo chmod 664 /usr/share/*/*/static/description/banner.png
+sudo chmod 664 /usr/share/*/*/static/description/icon.png
 
 
