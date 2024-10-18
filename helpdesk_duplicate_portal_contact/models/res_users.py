@@ -22,7 +22,7 @@ class ResUsers(models.Model):
         
         for user in users:
             duplicate_partners = self.env['res.partner'].search([("email", '=ilike', user.login)])
-            if len(duplicate_partners) >= 1:
+            if len(duplicate_partners) > 1:
                 partner_links = "<br/>".join([
                     f"{partner.name}<br/>{base_url}/web#id={partner.id}&model=res.partner&view_type=form<br/>"
                     for partner in duplicate_partners
