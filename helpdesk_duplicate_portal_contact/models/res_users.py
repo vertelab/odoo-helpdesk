@@ -21,7 +21,7 @@ class ResUsers(models.Model):
     def duplicates_create_helpdesk_ticket(self, users):
       for user in users:
         duplicate_partners = self.env['res.partner'].search([("email", '=ilike', user.login)])
-        if len(duplicate_partners) >= 1:
+        if len(duplicate_partners) > 1:
             partner_links = "\n".join([f"{partner.name}\n/web#id={partner.id}&model=res.partner&view_type=form\n" for partner in duplicate_partners])
             _logger.warning(f"{partner_links=}")
             ticket = {
