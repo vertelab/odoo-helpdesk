@@ -9,6 +9,13 @@ class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
     duplicate_partner_ids = fields.Many2many('res.partner', string='Duplicate Contacts')
 
+    duplicate_partner_count = fields.Integer(string='Duplicate Contacts', compute='_compute_duplicate_partner_count')
+
+    @api.depends('duplicate_partner_ids')
+    def _compute_duplicate_partner_count(self):
+        for ticket in self:
+            ticket.duplicate_partner_count = len(ticket.duplicate_partner_ids)
+
     def action_view_duplicate_contacts(self):
         self.ensure_one()
         return {
@@ -17,7 +24,7 @@ class HelpdeskTicket(models.Model):
         'view_mode': 'tree,form',
         'res_model': 'res.partner',
         'domain': [('id', 'in', self.duplicate_partner_ids.ids)],
-        'target': 'new',
+        'target': 'current',
          }
 
 
@@ -39,7 +46,7 @@ class ResUsers(models.Model):
         
         for user in users:
             duplicate_partners = self.env['res.partner'].search(['|',("email", '=ilike', user.login),('id','=',user.partner_id.id)])
-            if len(duplicate_partners.filtered(lambda r: r.id != user.partner_id.id)) > 1: ## Exclude our own partner when we see if there are duplicates since some functions set an email when we create an portal user.
+            if len(duplicate_partners.filtered(lambda r: r.id != user.partner_id.id)) >= 1: ## Exclude our own partner when we see if there are duplicates since some functions set an email when we create an portal user.
                 partner_links = "<br/>".join([
                     f"{partner.name}<br/>{base_url}/web#id={partner.id}&model=res.partner&view_type=form<br/>"
                     for partner in duplicate_partners
