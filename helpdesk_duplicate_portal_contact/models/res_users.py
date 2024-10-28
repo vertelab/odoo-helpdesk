@@ -4,6 +4,23 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
+class HelpdeskTicket(models.Model):
+    _inherit = 'helpdesk.ticket'
+    duplicate_partner_ids = fields.Many2many('res.partner', string='Duplicate Contacts')
+
+    def action_view_duplicate_contacts(self):
+        self.ensure_one()
+        return {
+        'name': 'Duplicate Contacts',
+        'type': 'ir.actions.act_window',
+        'view_mode': 'tree,form',
+        'res_model': 'res.partner',
+        'domain': [('id', 'in', self.duplicate_partner_ids.ids)],
+        'target': 'new',
+         }
+
+
 class ResUsers(models.Model):
     _inherit = "res.users"
     _description = "Find duplicate contacts"
@@ -40,4 +57,4 @@ Duplicate contacts:<br/>%(partner_links)s""") % {
                 }
 
                 ticket = self.env["helpdesk.ticket"].create(ticket)
-                _logger.warning(f"{ticket=}")
+                ticket.duplicate_partner_ids = [(6, 0, duplicate_partners.ids)]
