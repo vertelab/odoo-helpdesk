@@ -21,7 +21,7 @@ class ResUsers(models.Model):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         
         for user in users:
-            duplicate_partners = self.env['res.partner'].search(["|",("email", '=ilike', user.login)])
+            duplicate_partners = self.env['res.partner'].search([("email", '=ilike', user.login)])
             if len(duplicate_partners.filtered(lambda r: r.id != user.partner_id.id)) > 1: ## Exclude our own partner when we see if there are duplicates since some functions set an email when we create an portal user.
                 partner_links = "<br/>".join([
                     f"{partner.name}<br/>{base_url}/web#id={partner.id}&model=res.partner&view_type=form<br/>"
