@@ -21,7 +21,7 @@ class ResUsers(models.Model):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         
         for user in users:
-            duplicate_partners = self.env['res.partner'].search([("email", '=ilike', user.login)])
+            duplicate_partners = self.env['res.partner'].search(["|",("email", '=ilike', user.login),("email", "=ilike", user.email)])
             if len(duplicate_partners) >= 1:
                 partner_links = "<br/>".join([
                     f"{partner.name}<br/>{base_url}/web#id={partner.id}&model=res.partner&view_type=form<br/>"
