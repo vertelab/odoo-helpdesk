@@ -21,7 +21,7 @@
 # https://www.odoo.com/documentation/16.0/reference/module.html
 #
 {
-    'name': 'Helpdesk Management Translation',
+    'name': 'Helpdesk: Management Translation',
     'version': '0.1',
     'summary': 'Swedish translations for Helpdesk Management',
     'category': 'Helpdesk',
