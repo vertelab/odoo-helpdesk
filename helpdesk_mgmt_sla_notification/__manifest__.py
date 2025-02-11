@@ -1,7 +1,7 @@
 #    Copyright (C) 2020 GARCO Consulting <www.garcoconsulting.es>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
-    "name": "Helpdesk Ticket SLA Notifications",
+    "name": "Helpdesk: Ticket SLA Notifications",
     "summary": "Add SLA Notifications to the tickets for Helpdesk Management.",
     "author": "GARCO Consulting, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/helpdesk",
