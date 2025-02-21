@@ -51,9 +51,9 @@
                 and providing a link to this task. These provisions ensure a seamless transition and comprehensive traceability between the
                 ticket and its subsequent task.
             
-           
+            
             https://github.com/OCA/helpdesk
-           
+            
             """,
     'category': 'Productivity',
     'license': 'AGPL-3',
