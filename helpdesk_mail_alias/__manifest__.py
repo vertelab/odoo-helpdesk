@@ -21,7 +21,7 @@
 ##############################################################################
 {
     'name': 'Helpdesk: Management, Mail Alias',
-    'version': '2.6.0',
+    'version': '1.0',
     'summary': 'Adds email alias support for helpdesk tickets.',
     'category': 'Helpdesk',
     'description': """
