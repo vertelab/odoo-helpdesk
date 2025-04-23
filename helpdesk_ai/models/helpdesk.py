@@ -53,11 +53,12 @@ class HelpdeskTicket(models.Model):
                     'ai_agent_id': self.env.ref('helpdesk_ai.ai_agent_helpdesk_chat').id,
                     'ai_quest_id': ticket.ai_quest_id.id
                 })
-                ticket.ai_quest_id.channel_id.create({
+
+                ticket.ai_quest_id.channel_id = self.env['mail.channel'].create({
                     'name': f"[{ticket.number}] {ticket.name}",
                     'ai_quest_id': ticket.ai_qu_model_memory_type_dataest_id.id,
                     'description': _('Chat with helpdesk tickets'),
-                })
+                }).id
         return ticket
 
             
@@ -77,6 +78,7 @@ class HelpdeskTicket(models.Model):
                         'code': """result = quest.build(session=session,message=message_body).invoke(message_invoke)""",
                         'description': 'Answer my questions {message}',
                     })
+
                     ticket.ai_quest_id.channel_id = self.env['mail.channel'].create({
                         'name': f"[{ticket.number}] {ticket.name}",
                         'ai_quest_id': ticket.ai_quest_id.id,

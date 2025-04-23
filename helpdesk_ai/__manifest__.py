@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': 'Helpdesk: chat with cases',
+    'name': 'Helpdesk: Chat with Tickets',
     'version': '1.0.3',
     'summary': 'Mailbox for AI',
     # Categories can be used to filter modules in modules listing
