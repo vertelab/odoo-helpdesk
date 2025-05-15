@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="ticket_view_form" model="ir.ui.view">
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <field name="duplicate_partner_ids" invisible="1"/>
+                    <!-- #if VERSION >= "17.0" -->
+                    <button invisible="not duplicate_partner_ids" name="action_view_duplicate_contacts" type="object" class="oe_stat_button" icon="fa-copy">
+                        <field string="Duplicate Contacts" name="duplicate_partner_count" widget="statinfo"/>
+                    </button>
+                    <!-- #else -->
+                    <button attrs="{'invisible': [('duplicate_partner_ids', '=', [])]}" name="action_view_duplicate_contacts" type="object" class="oe_stat_button" icon="fa-copy">
+                        <field string="Duplicate Contacts" name="duplicate_partner_count" widget="statinfo"/>
+                     </button>
+                    <!-- #endif -->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
