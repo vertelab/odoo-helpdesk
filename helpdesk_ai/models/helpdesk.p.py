@@ -57,13 +57,13 @@ class HelpdeskTicket(models.Model):
                 # #if VERSION <= "16.0"
                 ticket.ai_quest_id.channel_id = self.env['mail.channel'].create({
                     'name': f"[{ticket.number}] {ticket.name}",
-                    'ai_quest_id': ticket.ai_qu_model_memory_type_dataest_id.id,
+                    'ai_quest_id': ticket.ai_quest_id.id,
                     'description': _('Chat with helpdesk tickets'),
                 }).id
                 # #else
                 ticket.ai_quest_id.channel_id = self.env['discuss.channel'].create({
                     'name': f"[{ticket.number}] {ticket.name}",
-                    'ai_quest_id': ticket.ai_qu_model_memory_type_dataest_id.id,
+                    'ai_quest_id': ticket.ai_quest_id.id,
                     'description': _('Chat with helpdesk tickets'),
                 }).id
                 # #endif
