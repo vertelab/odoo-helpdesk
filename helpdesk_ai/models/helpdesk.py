@@ -56,7 +56,7 @@ class HelpdeskTicket(models.Model):
 
                 ticket.ai_quest_id.channel_id = self.env['mail.channel'].create({
                     'name': f"[{ticket.number}] {ticket.name}",
-                    'ai_quest_id': ticket.ai_qu_model_memory_type_dataest_id.id,
+                    'ai_quest_id': ticket.ai_quest_id.id,
                     'description': _('Chat with helpdesk tickets'),
                 }).id
         return ticket
