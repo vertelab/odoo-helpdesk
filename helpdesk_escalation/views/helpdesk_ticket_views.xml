@@ -1,0 +1,14 @@
+<odoo>
+
+    <record id="helpdesk_mgmt" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.escalte.button.view.form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_get_ticket_escalate_wizard" string="Escalate" type="object" class="oe_highlight"/>
+            </header>
+        </field>
+    </record>
+
+</odoo>
