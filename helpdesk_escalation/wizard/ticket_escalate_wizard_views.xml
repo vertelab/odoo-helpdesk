@@ -1,0 +1,19 @@
+<odoo>
+
+    <record id="ticket_escalateion_wizard_view" model="ir.ui.view">
+        <field name="name">Ticket Escalatation Wizard</field>
+        <field name="model">ticket.escalate.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="ticket_team_id"/>
+                </group>
+                <footer>
+                    <button name="escalate" string="Escalate" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+</odoo>
