@@ -6,7 +6,6 @@ _logger = logging.getLogger(__name__)
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
-
     def action_get_ticket_escalate_wizard(self):
         action = {
             'name': 'Escalate Ticket Wizard',

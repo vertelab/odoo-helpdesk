@@ -70,7 +70,7 @@
         'security/ir.model.access.csv',
         'data/server_actions.xml',
         'views/helpdesk_ticket_views.xml',
-        'wizard/ticket_escalet_wizard_views.xml'
+        'wizard/ticket_escalate_wizard_views.xml'
         ],
     'installable': True,
     'application': False,
