@@ -6,6 +6,18 @@ _logger = logging.getLogger(__name__)
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
+
+    def action_get_ticket_escalate_wizard(self):
+        action = {
+            'name': 'Escalate Ticket Wizard',
+            'type': 'ir.actions.act_window',
+            'res_model': 'ticket.escalate.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {"default_ticket_id": self.id}
+        }
+        return action
+
     @api.model
     def create_project_task_from_ticket(self):
         

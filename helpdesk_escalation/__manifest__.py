@@ -67,7 +67,10 @@
     
     'depends': ['helpdesk_mgmt', 'helpdesk_mgmt_project', 'project'],
     'data': [
+        'security/ir.model.access.csv',
         'data/server_actions.xml',
+        'views/helpdesk_ticket_views.xml',
+        'wizard/ticket_escalet_wizard_views.xml'
         ],
     'installable': True,
     'application': False,
