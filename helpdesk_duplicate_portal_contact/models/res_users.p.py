@@ -26,6 +26,7 @@ class HelpdeskTicket(models.Model):
         'view_mode': 'list,form',
         # #if VERSION <= "17.0"
         'view_mode': 'tree,form',
+        # #endif
         'res_model': 'res.partner',
         'domain': [('id', 'in', self.duplicate_partner_ids.ids)],
         'target': 'current',
