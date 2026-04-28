@@ -22,6 +22,9 @@ class HelpdeskTicket(models.Model):
         return {
         'name': 'Duplicate Contacts',
         'type': 'ir.actions.act_window',
+        # #if VERSION >= "18.0"
+        'view_mode': 'list,form',
+        # #if VERSION <= "17.0"
         'view_mode': 'tree,form',
         'res_model': 'res.partner',
         'domain': [('id', 'in', self.duplicate_partner_ids.ids)],
@@ -63,6 +66,7 @@ Duplicate contacts:<br/>%(partner_links)s""") % {
                         'user_login': user.login,
                         'partner_links': partner_links
                     },
+                    "user_id":False,
                     "team_id": int(self.env['ir.config_parameter'].sudo().get_param('helpdesk.helpdesk_team_id')),
                 }
 
