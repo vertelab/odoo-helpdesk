@@ -32,7 +32,7 @@
         Creates a helpdesk ticket if a portal user is created and there already exists a user with the same name.  
     """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-',
+    'website': 'https://vertel.se/apps/odoo-helpdesk/helpdesk_duplicate_portal_contact',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'depends': ['base', 'helpdesk_mgmt'],
