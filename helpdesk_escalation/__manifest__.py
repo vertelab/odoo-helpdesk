@@ -21,40 +21,35 @@
 
 {
     'name': "Helpdesk: Escalation",
-    'version': '0.1',
-    'summary': 'Adds Ticket-to-Task Escalation',
+    'version': '18.0.1.0.0',
+    'summary': 'Adds Ticket-to-Task Escalation.',
     'description': 
-        """
-        * Overview
-        
-            Enhances the Helpdesk module by introducing an additional action button in the ticket form view, enabling users to seamlessly convert tickets into tasks.
-        
-        * Features
-        
-            - Introduction of New Escalation Feature
+        '''
+Escalation
+==========
 
-                The feature introduces an enhancement to the action menu within the Helpdesk ticket view form, by adding an option for ticket 
-                escalation to a task. This functionality will extract all relevant information, such as attachments and messages, from the 
-                selected ticket to generate a new task. However, it's important to note that this will not work if there is an existing task
-                associated with the ticket or if a 'Project' hasn't been designated.
+    Enhances the Helpdesk module by introducing an additional action button in the ticket form view, enabling users to seamlessly convert tickets into tasks.
 
-            - Archiving and Redirection Post Task Creation
+    The feature introduces an enhancement to the action menu within the Helpdesk ticket view form, by adding an option for ticket 
+                    escalation to a task. This functionality will extract all relevant information, such as attachments and messages, from the 
+                    selected ticket to generate a new task. However, it's important to note that this will not work if there is an existing task
+                    associated with the ticket or if a 'Project' hasn't been designated.
 
-                Upon successful creation of the task, the originating ticket is archived to maintain an efficient workflow. Users will be 
-                automatically redirected to the freshly created task for immediate attention.
+    Upon successful creation of the task, the originating ticket is archived to maintain an efficient workflow. Users will be 
+                    automatically redirected to the freshly created task for immediate attention.
 
-            - Traceability with Automatic Message Creation
+    For transparency and reference, an automatic message will be added to the task. This message will indicate that the task was
+                    created based on a specific Helpdesk ticket and will also include a link back to the original ticket. Similarly, a 
+                    corresponding message will be created on the archived Helpdesk ticket, indicating its utilization in the creation of a task
+                    and providing a link to this task. These provisions ensure a seamless transition and comprehensive traceability between the
+                    ticket and its subsequent task.
 
-                For transparency and reference, an automatic message will be added to the task. This message will indicate that the task was
-                created based on a specific Helpdesk ticket and will also include a link back to the original ticket. Similarly, a 
-                corresponding message will be created on the archived Helpdesk ticket, indicating its utilization in the creation of a task
-                and providing a link to this task. These provisions ensure a seamless transition and comprehensive traceability between the
-                ticket and its subsequent task.
-            
-            
-            https://github.com/OCA/helpdesk
-            
-            """,
+    Features:
+
+        - Guided Wizards: Step-by-step dialogs for data entry.
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on helpdesk.ticket.
+    ''',
     'category': 'Productivity',
     'license': 'AGPL-3',
     'author': 'Vertel AB',

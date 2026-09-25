@@ -22,12 +22,19 @@
 #
 {
     'name': 'Helpdesk: Hierarchy Category',
-    'version': '0.1',
-    'summary': 'Helpdesk Hierarchy Category',
+    'version': '18.0.1.0.0',
+    'summary': 'Helpdesk Hierarchy Category.',
     'category': 'Knowledge',
-    'description': """
-    Adds a parent to a category and combine, their names.
-    """,
+    'description': '''
+Hierarchy Category
+==================
+
+    Helpdesk Hierarchy Category.
+
+    Features:
+
+        - UI Integration: Extends 3 view(s) in the Odoo interface.
+    ''',
     'license': 'AGPL-3',
     'author': 'Vertel AB',
     'maintainer': 'Vertel AB',

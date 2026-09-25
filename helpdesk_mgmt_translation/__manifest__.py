@@ -22,12 +22,19 @@
 #
 {
     'name': 'Helpdesk Management Translation',
-    'version': '0.1',
-    'summary': 'Swedish translations for Helpdesk Management',
+    'version': '18.0.1.0.0',
+    'summary': 'Swedish translations for Helpdesk Management.',
     'category': 'Helpdesk',
-    'description': """
-    Swedish translations for Helpdesk Management
-    """,
+    'description': '''
+Helpdesk Management Translation
+===============================
+
+    Swedish translations for Helpdesk Management.
+
+    Features:
+
+        - Focused Fix: A small, targeted improvement to standard Odoo behaviour.
+    ''',
     'license': 'AGPL-3',
     'author': 'Vertel AB',
     'maintainer': 'Vertel AB',

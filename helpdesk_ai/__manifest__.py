@@ -21,15 +21,22 @@
 
 {
     'name': 'Helpdesk: Chat with Tickets',
-    'version': '1.0.3',
-    'summary': 'Mailbox for AI',
+    'version': '18.0.1.0.3',
+    'summary': 'Mailbox for AI.',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'helpdesk',
-    'description': """
-        Mailbox for AI
-    """,
+    'description': '''
+Chat with Tickets
+=================
+
+    Mailbox for AI.
+
+    Features:
+
+        - Extends Odoo: Builds on ai.agent, ai.memory, ai.quest, ai.quest.session.
+    ''',
     #'sequence': '1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-helpdesk/helpdesk_ai',
