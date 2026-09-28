@@ -22,21 +22,12 @@
 #
 {
     'name': 'Helpdesk: Related Ticket',
-    'version': '18.0.1.0.0',
-    'summary': 'Helpdesk Related Ticket.',
+    'version': '0.1',
+    'summary': 'Helpdesk Related Ticket',
     'category': 'Helpdesk',
-    'description': '''
-Related Ticket
-==============
-
+    'description': """
     This module makes it possible to, in the web form, create a connection to a previous helpdesk ticket.
-
-    Features:
-
-        - Web integration: Exposes HTTP endpoints for external systems.
-        - UI Integration: Extends 3 view(s) in the Odoo interface.
-        - Extends Odoo: Builds on helpdesk.ticket.
-    ''',
+    """,
     'license': 'AGPL-3',
     'author': 'Vertel AB',
     'maintainer': 'Vertel AB',
