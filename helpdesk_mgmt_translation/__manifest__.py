@@ -1,6 +1,6 @@
 ##############################################################################
 #
-#    Copyright (C) 2023 Vertel AB (<robin.calvin@vertel.se>)
+#    Copyright (C) 2023 Vertel Sverige AB (<robin.calvin@vertel.se>)
 #    All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 # https://www.odoo.com/documentation/16.0/reference/module.html
 #
 {
-    'name': 'Helpdesk: Management Translation',
+    'name': 'Helpdesk Management Translation',
     'version': '0.1',
     'summary': 'Swedish translations for Helpdesk Management',
     'category': 'Helpdesk',
@@ -29,8 +29,8 @@
     Swedish translations for Helpdesk Management
     """,
     'license': 'AGPL-3',
-    'author': 'Vertel AB',
-    'maintainer': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
+    'maintainer': 'Vertel Sverige AB',
     'contributor': '',
     'website': 'https://vertel.se/apps/odoo-helpdesk/helpdesk_mgmt_translation',
     'images': ['static/description/banner.png'], # 560x280 px.
