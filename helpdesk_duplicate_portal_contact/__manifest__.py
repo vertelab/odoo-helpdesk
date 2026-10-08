@@ -31,7 +31,7 @@
     'description': """
         Creates a helpdesk ticket if a portal user is created and there already exists a user with the same name.  
     """,
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',

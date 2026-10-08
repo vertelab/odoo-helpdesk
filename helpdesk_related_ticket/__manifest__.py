@@ -1,6 +1,6 @@
 ##############################################################################
 #
-#    Copyright (C) 2023 Vertel AB (<robin.calvin@vertel.se>)
+#    Copyright (C) 2023 Vertel Sverige AB (<robin.calvin@vertel.se>)
 #    All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -29,8 +29,8 @@
     This module makes it possible to, in the web form, create a connection to a previous helpdesk ticket.
     """,
     'license': 'AGPL-3',
-    'author': 'Vertel AB',
-    'maintainer': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
+    'maintainer': 'Vertel Sverige AB',
     'contributor': '',
     'website': 'https://vertel.se/apps/odoo-helpdesk/helpdesk_related_ticket',
     'images': ['static/description/banner.png'], # 560x280 px.
