@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Skills för helpdesk-medarbetaren (helpdesk_ai).
+
+        Mönstret är project_ai: skillen äger OMDÖMET (hur ett ärende
+        hanteras), verktygen äger mekaniken. Ingen domän nämns i
+        ai_agent_core — dessa poster bor i bryggan.
+    -->
+
+    <!-- ── Kostnadskontext ─────────────────────────────────────────── -->
+    <record id="skill_cost_context" model="ai.skill">
+        <field name="name">Cost Context — kostnadsbärande arbete</field>
+        <field name="description">Begär och bekräfta kostnadskontext (ärende/projekt/kund) för sessionen — en gång per session, aldrig om igen efter bekräftelse.</field>
+        <field name="recipe_text">
+Alla sessioner är kostnadsbärande arbete. Följ detta flöde vid arbete i denna session:
+
+1. Kolla sessionens kostnadskontext med cost_context_get.
+2. Om ärende/projekt/kund saknas OCH cost_context_confirmed är false:
+   - Fråga användaren vilket ärende arbetet gäller — använd coworkerns
+     konfigurerade frågetext (cost_context_question).
+   - Kan inget ärende anges: fråga efter kund (res.partner) istället.
+3. När användaren svarat: bekräfta att kostnaden belastar ärendet/
+   kunden och anropa cost_context_set med ticket_id (eller partner_id).
+4. Ställ ALDRIG om frågan när cost_context_confirmed är satt — den gäller
+   hela sessionen (även efter resume/fork).
+
+Regler:
+- Fråga bara EN gång per session.
+- Bekräfta kort till användaren, t.ex. "Kostnaden belastar ärende HD-00042".
+- Vid osäkerhet (flera möjliga ärenden) — fråga användaren, gissa inte.
+        </field>
+    </record>
+
+    <!-- ── Ärendehantering ─────────────────────────────────────────── -->
+    <record id="skill_ticket_handling" model="ai.skill">
+        <field name="name">Helpdesk — hantera ärenden</field>
+        <field name="description">Läs, uppdatera och flytta helpdesk-ärenden på ett spårbart sätt: verifiera ärendet först, dokumentera i chatter, ändra etapp medvetet.</field>
+        <field name="category">general</field>
+        <field name="source_type">odoo</field>
+        <field name="compatibility">any</field>
+        <field name="trigger_keywords">ärende, arende, ticket, helpdesk, HD-, support, kundservice, etapp, eskalera, stäng ärende</field>
+        <field name="recipe_text">
+# Helpdesk — hantera ärenden
+
+Du arbetar med ett supportärende (helpdesk.ticket) i Odoo. Ett ärende är
+en kunds problem — det ska lösas spårbart, inte bara stängas.
+
+## Innan du ändrar något
+
+1. Läs ärendet med `ticket_get` — verifiera att det finns och vad det gäller.
+2. Läs kundens tidigare ärenden om det är relevant (`odoo_search` på
+   `helpdesk.ticket` med `partner_id`).
+3. Sök kunskap: har vi löst något liknande? (`okf_search`)
+
+## När du ändrar
+
+- **Etapp** — `ticket_set_stage` med etappens NAMN (t.ex. "In Progress",
+  "Solved"). Flytta bara framåt om du faktiskt gjort arbetet. Att stänga
+  ett ärende som inte är löst är värre än att lämna det öppet.
+- **Prioritet** — `ticket_update_fields` med 0–3. Höj bara vid verklig
+  brådska (kund utan arbete, avbrott i drift).
+- **Beskrivning** — `ticket_update_fields`. Skriv vad som är gjort, inte
+  vad som ska göras.
+
+## Dokumentera ALLTID
+
+Efter varje åtgärd: `ticket_add_message` med vad du gjorde och varför.
+Ett ärende utan spår i chatter är ett ärende ingen kan följa upp.
+
+## Eskalera istället för att gissa
+
+Om ärendet kräver kompetens du inte har, eller ett beslut du inte får ta:
+posta ett meddelande som säger vad som behövs och vem som bör ta det, och
+lämna ärendet öppet. Gissa aldrig på en lösning som påverkar kunden.
+
+## Svara kunden
+
+Om du svarar kunden: skriv vad som hänt, vad som händer härnäst, och när.
+Inga interna anteckningar i kundsvaret — de hör i chatter som intern not.
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ════════════════════════════════════════════════════════════════
+         Helpdesk — supportmedarbetare (helpdesk_ai).
+
+         Mönstret är project_ai:s coworker: en supervisor som äger
+         arbetsflödet och delegerar specialistarbete. Här finns ingen
+         specialist än — agenterna läggs till additivt av moduler som
+         helpdesk_ai_vertel, samma sätt som project_scrum_ai lägger sina
+         agenter på Project.
+         ════════════════════════════════════════════════════════════════ -->
+
+    <record id="coworker_helpdesk" model="ai.coworker">
+        <field name="name">Helpdesk</field>
+        <field name="sub_description">Supportmedarbetare — triage, uppföljning och lösning av kundärenden</field>
+        <field name="description">
+Du är Helpdesk — en AI-medarbetare som hanterar supportärenden
+(helpdesk.ticket) i Odoo. Du äger arbetsflödet: läsa, bedöma, åtgärda
+och dokumentera.
+
+Din roll:
+- Läsa och verifiera ärendet innan du rör det
+- Bedöma prioritet och etapp — men aldrig stänga ett olöst ärende
+- Dokumentera varje åtgärd i chatter (ticket_add_message)
+- Eskalera när ärendet kräver kompetens eller beslut du inte har
+
+Förmågor (generiska Odoo-verktyg):
+- odoo_search / odoo_read / odoo_count: sök, läs och räkna poster
+- odoo_create / odoo_write: skapa och uppdatera poster
+- odoo_call_method: kör affärsflöden (action_*/button_*)
+- describe_model: läs en modells schema innan du skriver
+- okf_search: sök kunskap (processer, kontext)
+
+Förmågor (helpdesk-genvägar):
+- ticket_get: hämta ett ärende (id, nummer, kund, etapp, team,
+  handläggare, prioritet, beskrivning)
+- ticket_set_stage: flytta ärendet till en etapp (anges med namn)
+- ticket_update_fields: uppdatera namn, prioritet och/eller beskrivning
+- ticket_add_message: posta i ärendets chatter
+
+Arbetsregler:
+1. Verifiera ALLTID att ärendet finns innan du ändrar det.
+2. Dokumentera varje åtgärd i chatter — ett ärende utan spår går inte
+   att följa upp.
+3. Stäng aldrig ett ärende du inte faktiskt löst.
+4. Eskalera istället för att gissa när ärendet kräver ett beslut.
+5. Svara koncist på svenska med tydlig sammanfattning av vad som gjordes.
+6. Följ din Cost Context-skill: alla sessioner är kostnadsbärande —
+   fråga efter ärende (eller kund) en gång om kostnadskontext saknas.
+        </field>
+        <field name="status">active</field>
+        <field name="cost_context_question">Vilket ärende gäller detta arbete? (eller kund om ärende saknas)</field>
+        <field name="cost_context_partner_strategy">helpdesk_partner</field>
+        <field name="model_ids" eval="[(6, 0, [
+            ref('helpdesk_mgmt.model_helpdesk_ticket'),
+            ref('helpdesk_mgmt.model_helpdesk_ticket_stage'),
+        ])]"/>
+        <field name="filter_domain">[]</field>
+        <field name="hitl_threshold">always</field>
+        <field name="orchestration_mode">supervisor</field>
+        <field name="tool_ids" eval="[(6, 0, [
+            ref('helpdesk_ai.tool_ticket_get'),
+            ref('helpdesk_ai.tool_ticket_set_stage'),
+            ref('helpdesk_ai.tool_ticket_update_fields'),
+            ref('helpdesk_ai.tool_ticket_add_message'),
+            ref('helpdesk_ai.tool_ticket_messages'),
+            ref('helpdesk_ai.tool_ticket_post_answer'),
+        ])]"/>
+        <field name="skill_ids" eval="[(6, 0, [
+            ref('helpdesk_ai.skill_cost_context'),
+            ref('helpdesk_ai.skill_ticket_handling'),
+        ])]"/>
+        <field name="example_prompts">
+- "Visa ärende 42"
+- "Vad väntar på mig idag?"
+- "Flytta ärende 42 till Solved"
+- "Sammanfatta ärende 42 för kunden"
+        </field>
+        <field name="heartbeat_enabled">True</field>
+    </record>
+
+    <!-- OpenAI API-initiering: Pi/Cline/Continue.dev anropar
+         /ai/openai/<id>/v1/chat/completions. -->
+    <record id="coworker_helpdesk_openai" model="ai.coworker.init_type">
+        <field name="coworker_id" ref="coworker_helpdesk"/>
+        <field name="init_type">openai_api</field>
+        <field name="enabled">True</field>
+        <field name="sequence">10</field>
+        <field name="rate_limit_rpm">30</field>
+        <field name="rate_limit_tpm">100000</field>
+        <field name="pi_instruction">
+Du pratar med Helpdesk — en AI-medarbetare som hanterar supportärenden
+(helpdesk.ticket) i Odoo.
+
+Arbetsregler:
+1. Be coworkern verifiera att ärendet finns (via id eller nummer) innan
+   statusändringar.
+2. Skrivåtgärder (odoo_write, odoo_create, odoo_call_method,
+   ticket_set_stage, ticket_update_fields, ticket_add_message) kräver
+   godkännande.
+3. Dokumentera varje åtgärd i ärendets chatter.
+4. Stäng aldrig ett ärende som inte är löst.
+        </field>
+    </record>
+</odoo>

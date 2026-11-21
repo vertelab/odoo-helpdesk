@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ════════════════════════════════════════════════════════════════
+         Specialist-agent för Helpdesk (helpdesk_ai).
+
+         Mönster: ADDITIV FÖRMÅGEEXPANSION (project_ai).
+         Den här modulen äger sina egna xmlid:n och lägger till länkrader
+         på coworkern — den skriver inte över en delad lista. En modul
+         som helpdesk_ai_vertel lägger till SINA agenter på samma
+         coworker utan att röra dessa.
+         ════════════════════════════════════════════════════════════════ -->
+
+    <!-- ── Ärendeanalytiker — triage, kunskapssök, kundhistorik ─────── -->
+    <record id="agent_ticket_analyst" model="ai.agent">
+        <field name="name">Ärendeanalytiker</field>
+        <field name="description">
+Analyserar ett supportärende innan det åtgärdas: vad kunden faktiskt
+frågar om, vilken prioritet det har, om vi löst något liknande tidigare,
+och vilken etapp det hör hemma i. Rapporterar till Helpdesk — den
+åtgärdar inte själv.
+        </field>
+        <field name="ai_role">Ärendeanalytiker</field>
+        <field name="ai_goal">Leverera en konkret bedömning av ett supportärende — vad kunden frågar om, prioritet, tidigare lösningar och rätt etapp — utan att åtgärda det själv.</field>
+        <field name="ai_backstory">Du är ärendeanalytikern i Vertels AI-team. Du har hanterat support i många branscher och vet att det dyraste felet är att lösa fel problem snabbt. Du läser ärendet, söker kunskap och rapporterar — du stänger aldrig ett ärende du inte förstår.
+</field>
+        <field name="tool_ids" eval="[(6, 0, [
+            ref('helpdesk_ai.tool_ticket_get'),
+            ref('ai_agent_core.tool_odoo_search'),
+            ref('ai_agent_core.tool_describe_model'),
+            ref('ai_agent_core.tool_okf_search'),
+        ])]"/>
+        <field name="skill_ids" eval="[(6, 0, [
+            ref('helpdesk_ai.skill_ticket_handling'),
+        ])]"/>
+    </record>
+
+    <!-- Länkrad: agenten tillhör Helpdesk-coworkern -->
+    <record id="coworker_helpdesk_agent_analyst" model="ai.coworker.agent">
+        <field name="coworker_id" ref="coworker_helpdesk"/>
+        <field name="agent_id" ref="agent_ticket_analyst"/>
+        <field name="sequence">10</field>
+    </record>
+</odoo>

@@ -1,53 +1,49 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Odoo SA, Open Source Management Solution, third party addon
-#    Copyright (C) 2025- Vertel Sverige AB (<https://vertel.se>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 {
-    'name': 'Helpdesk: Chat with Tickets',
-    'version': '1.0.3',
-    'summary': 'Mailbox for AI',
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'helpdesk',
-    'description': """
-        Mailbox for AI
-    """,
-    #'sequence': '1',
+    'name': 'Helpdesk: AI Coworker',
+    'version': '1.0.0',
+    'summary': 'AI coworker for helpdesk — ticket context, tools and skills.',
+    'description': '''
+Helpdesk AI Coworker
+====================
+
+    Built on ai_agent_core, the same pattern as project_ai.
+
+    Features:
+
+        - Session context: `ticket_id` on ai.coworker.session, so cost
+          context, lineage and memory attach to the ticket.
+        - Resolver `helpdesk_partner`: derives the customer from the ticket.
+        - Tools: ticket_get, ticket_set_stage, ticket_update_fields,
+          ticket_add_message.
+        - Coworker "Helpdesk" (supervisor) with its own skills.
+
+    HISTORY: this module replaces the previous `helpdesk_ai`, which was
+    built on the retired `ai_agent` stack (ai.memory, ai.quest.session,
+    ai.quest). ai_agent_core is incompatible with ai_agent — they define
+    the same models — so that module could not be extended with
+    ai.coworker.session. The old module is removed; this one keeps the
+    name and is the ai_agent_core-native implementation.
+
+    MODEL CHOICE: OCA `helpdesk_mgmt`, not Odoo Enterprise `helpdesk`.
+    ''',
+    'category': 'Helpdesk',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se/apps/odoo-ai/ai_mail_e_avrop',
-    'images': ['static/description/banner.png'],  # 560x280 px.
+    'website': 'https://vertel.se',
     'license': 'AGPL-3',
-    'contributor': '',
-    'maintainer': 'Vertel Sverige AB',
-    'repository': 'https://github.com/vertelab/odoo-ai',
-    # Any module necessary for this one to work correctly
     'depends': [
-        'ai_agent',
         'helpdesk_mgmt',
+        'ai_agent_core',
     ],
     'data': [
-        'data/ai_agent_data.xml',
+        'security/ir.model.access.csv',
+        'data/helpdesk_tools.xml',
+        'data/helpdesk_skills.xml',
+        'data/helpdesk_coworkers.xml',
+        'data/helpdesk_agents.xml',
+        'views/helpdesk_ticket_views.xml',
     ],
     'installable': True,
-    'auto_install': False,
     'application': False,
+    'auto_install': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

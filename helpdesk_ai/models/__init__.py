@@ -1,3 +1,4 @@
-from . import helpdesk
-from . import ai_memory
-from . import ai
+# -*- coding: utf-8 -*-
+from . import helpdesk_ai
+from . import ai_coworker_session
+from . import helpdesk_ticket
