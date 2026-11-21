@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Tester för helpdesk_ai_core — kontext, resolver och verktyg."""
+"""Tester för helpdesk_ai — kontext, resolver och verktyg."""
 
 from odoo.tests.common import TransactionCase
 
@@ -45,7 +45,7 @@ class TestHelpdeskContext(TransactionCase):
 
     def test_resolver_sets_partner_from_ticket(self):
         """helpdesk_partner-resolvern härleder kund ur ärendet."""
-        from odoo.addons.helpdesk_ai_core.models.ai_coworker_session import (
+        from odoo.addons.helpdesk_ai.models.ai_coworker_session import (
             _helpdesk_partner_strategy)
         session = self._new_session()
         session.ticket_id = self.ticket
@@ -55,7 +55,7 @@ class TestHelpdeskContext(TransactionCase):
 
     def test_resolver_does_not_guess(self):
         """Utan ärende sätts ingen partner."""
-        from odoo.addons.helpdesk_ai_core.models.ai_coworker_session import (
+        from odoo.addons.helpdesk_ai.models.ai_coworker_session import (
             _helpdesk_partner_strategy)
         session = self._new_session()
         session.partner_id = False

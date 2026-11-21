@@ -1,3 +1,2 @@
-from . import helpdesk
-from . import ai_memory
-from . import ai
+from . import ai_coworker_session
+from . import helpdesk_ai

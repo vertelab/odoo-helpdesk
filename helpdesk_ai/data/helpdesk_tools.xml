@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!--
-        Helpdesk tools (helpdesk_ai_core).
+        Helpdesk tools (helpdesk_ai).
 
         Verktygen är tunna skal: all affärslogik ligger i
         `helpdesk.ai`-modellen (models/helpdesk_ai.py), samma mönster som

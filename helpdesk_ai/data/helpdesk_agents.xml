@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- ════════════════════════════════════════════════════════════════
-         Specialist-agent för Helpdesk (helpdesk_ai_core).
+         Specialist-agent för Helpdesk (helpdesk_ai).
 
          Mönster: ADDITIV FÖRMÅGEEXPANSION (project_ai).
          Den här modulen äger sina egna xmlid:n och lägger till länkrader
@@ -24,13 +24,13 @@ och vilken etapp det hör hemma i. Rapporterar till Helpdesk — den
         <field name="ai_backstory">Du är ärendeanalytikern i Vertels AI-team. Du har hanterat support i många branscher och vet att det dyraste felet är att lösa fel problem snabbt. Du läser ärendet, söker kunskap och rapporterar — du stänger aldrig ett ärende du inte förstår.
 </field>
         <field name="tool_ids" eval="[(6, 0, [
-            ref('helpdesk_ai_core.tool_ticket_get'),
+            ref('helpdesk_ai.tool_ticket_get'),
             ref('ai_agent_core.tool_odoo_search'),
             ref('ai_agent_core.tool_describe_model'),
             ref('ai_agent_core.tool_okf_search'),
         ])]"/>
         <field name="skill_ids" eval="[(6, 0, [
-            ref('helpdesk_ai_core.skill_ticket_handling'),
+            ref('helpdesk_ai.skill_ticket_handling'),
         ])]"/>
     </record>
 
