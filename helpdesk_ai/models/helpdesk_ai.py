@@ -137,3 +137,65 @@ class HelpdeskAI(models.AbstractModel):
         self._capture_session_from_ticket(ticket.id)
         return True, 'Message posted on %s' % (
             ticket.number or ticket.name)
+
+    # ── Läsa tråden ────────────────────────────────────────────────────
+
+    @api.model
+    def ticket_messages(self, ticket_id, limit=20):
+        """Returnera de senaste meddelandena på ärendet.
+
+        Behövs innan ett svar föreslås: kunden kan redan ha fått svar,
+        eller frågat om något annat än titeln antyder. `ticket_get` ger
+        bara beskrivningen, inte samtalet.
+
+        Kropparna är HTML i Odoo — vi returnerar dem råa. Att strippa
+        vore att tappa tabeller och listor som kunden faktiskt skrivit.
+        """
+        ticket = self.env['helpdesk.ticket'].sudo().browse(int(ticket_id))
+        if not ticket.exists():
+            return {'error': 'Ticket %s not found' % ticket_id}
+        msgs = ticket.message_ids.sorted('date', reverse=True)[:int(limit)]
+        return {
+            'ticket_id': ticket.id,
+            'count': len(msgs),
+            'messages': [
+                {
+                    'id': m.id,
+                    'date': m.date.isoformat() if m.date else None,
+                    'author': m.author_id.name if m.author_id else '',
+                    'type': m.message_type,
+                    'subject': m.subject or '',
+                    'body': m.body or '',
+                }
+                for m in msgs
+            ],
+        }
+
+    # ── Svara kunden ──────────────────────────────────────────────────
+
+    @api.model
+    def ticket_post_answer(self, ticket_id, body):
+        """Svara kunden — kommentar som går ut som e-post.
+
+        Skillnaden mot `ticket_add_message`: den postar med
+        message_type='comment' men UTAN subtype, vilket i Odoo betyder
+        "intern notering". Här sätts subtype mt_comment, som är det som
+        faktiskt notifierar kunden.
+
+        Verktyget finns för att svaret ska kunna nå kunden. En intern
+        notering ska fortsätta gå via ticket_add_message.
+        """
+        ticket = self.env['helpdesk.ticket'].sudo().browse(int(ticket_id))
+        if not ticket.exists():
+            return False, 'Ticket %s not found' % ticket_id
+        if not body or not str(body).strip():
+            return False, 'Missing message body'
+        ticket.message_post(
+            body=str(body),
+            message_type='comment',
+            subtype_xmlid='mail.mt_comment',
+        )
+        self._capture_session_from_ticket(ticket.id)
+        return True, 'Answer sent to customer on %s' % (
+            ticket.number or ticket.name)
+

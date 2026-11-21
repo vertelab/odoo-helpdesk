@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Helpdesk: AI Coworker',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'AI coworker for helpdesk — ticket context, tools and skills.',
     'description': '''
 Helpdesk AI Coworker
@@ -41,8 +41,9 @@ Helpdesk AI Coworker
         'data/helpdesk_skills.xml',
         'data/helpdesk_coworkers.xml',
         'data/helpdesk_agents.xml',
+        'views/helpdesk_ticket_views.xml',
     ],
     'installable': True,
     'application': False,
-    'auto_install': False,
+    'auto_install': True,
 }

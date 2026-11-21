@@ -63,6 +63,8 @@ Arbetsregler:
             ref('helpdesk_ai.tool_ticket_set_stage'),
             ref('helpdesk_ai.tool_ticket_update_fields'),
             ref('helpdesk_ai.tool_ticket_add_message'),
+            ref('helpdesk_ai.tool_ticket_messages'),
+            ref('helpdesk_ai.tool_ticket_post_answer'),
         ])]"/>
         <field name="skill_ids" eval="[(6, 0, [
             ref('helpdesk_ai.skill_cost_context'),

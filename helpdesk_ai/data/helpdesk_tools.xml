@@ -70,4 +70,30 @@ async def execute(ticket_id, body):
 ]]></field>
     </record>
 
+    <record id="tool_ticket_messages" model="ai.tool">
+        <field name="name">ticket_messages</field>
+        <field name="description">Hämta de senaste meddelandena på ett helpdesk-ärende — kundens fråga, svar och interna noteringar. Använd innan du föreslår ett svar: kunden kan redan ha fått svar, eller frågat om något annat än titeln antyder.</field>
+        <field name="parameters">{"type": "object", "properties": {"ticket_id": {"type": "integer", "description": "ID för helpdesk.ticket"}, "limit": {"type": "integer", "description": "antal meddelanden (default 20)"}}, "required": ["ticket_id"]}</field>
+        <field name="risk_level">read_only</field>
+        <field name="code"><![CDATA[
+async def execute(ticket_id, limit=20):
+    """Hämta meddelandetråden."""
+    res = env['helpdesk.ai'].ticket_messages(int(ticket_id), int(limit))
+    return json.dumps(res, ensure_ascii=False, default=str)
+]]></field>
+    </record>
+
+    <record id="tool_ticket_post_answer" model="ai.tool">
+        <field name="name">ticket_post_answer</field>
+        <field name="description">Svara kunden på ett helpdesk-ärende. Svaret postas som kommentar med notifiering — kunden får det via e-post. Skriv färdigt svar, inte utkast. För intern notering: använd ticket_add_message.</field>
+        <field name="parameters">{"type": "object", "properties": {"ticket_id": {"type": "integer", "description": "ID för helpdesk.ticket"}, "body": {"type": "string", "description": "svarets text (HTML tillåts)"}}, "required": ["ticket_id", "body"]}</field>
+        <field name="risk_level">write</field>
+        <field name="code"><![CDATA[
+async def execute(ticket_id, body):
+    """Posta svar till kund."""
+    ok, msg = env['helpdesk.ai'].ticket_post_answer(int(ticket_id), str(body))
+    return msg
+]]></field>
+    </record>
+
 </odoo>

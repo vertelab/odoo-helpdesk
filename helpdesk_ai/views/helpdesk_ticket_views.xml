@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_helpdesk_ticket_form_ai" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.ai</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_ai_chat" type="object"
+                        class="oe_stat_button" icon="fa-comments"
+                        groups="base.group_user"
+                        help="Öppna AI-chatten för detta ärende">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Fråga AI</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
