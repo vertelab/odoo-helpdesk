@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Helpdesk tools (helpdesk_ai_core).
+
+        Verktygen är tunna skal: all affärslogik ligger i
+        `helpdesk.ai`-modellen (models/helpdesk_ai.py), samma mönster som
+        project_ai:s `project_ai.py`. Det gör logiken testbar och läsbar.
+
+        Alla anropar `_capture_session_from_ticket` via modellen, så
+        sessionen får `ticket_id` + `partner_id` när ett verktyg rör ett
+        ärende — det är det som ger kostnadskontext, lineage och minne.
+    -->
+
+    <!-- ── ticket_get — läs ett ärende ──────────────────────────────── -->
+    <record id="tool_ticket_get" model="ai.tool">
+        <field name="name">ticket_get</field>
+        <field name="description">Hämta information om ett helpdesk-ärende (helpdesk.ticket). Returnerar JSON med id, nummer, namn, kund, etapp, team, handläggare, prioritet och beskrivning. Använd innan du ändrar ärendet.</field>
+        <field name="parameters">{"type": "object", "properties": {"ticket_id": {"type": "integer", "description": "ID för helpdesk.ticket"}}, "required": ["ticket_id"]}</field>
+        <field name="risk_level">read_only</field>
+        <field name="code"><![CDATA[
+async def execute(ticket_id):
+    """Hämta ärende."""
+    res = env['helpdesk.ai'].ticket_get(int(ticket_id))
+    return json.dumps(res, ensure_ascii=False, default=str)
+]]></field>
+    </record>
+
+    <!-- ── ticket_set_stage — flytta ärendet ───────────────────────── -->
+    <record id="tool_ticket_set_stage" model="ai.tool">
+        <field name="name">ticket_set_stage</field>
+        <field name="description">Flytta ett helpdesk-ärende till en annan etapp. Etappen anges med namn (t.ex. "In Progress", "Solved"). Etappen slås upp i ärendets team först, annars globalt. Returnerar ett meddelande som säger om det lyckades.</field>
+        <field name="parameters">{"type": "object", "properties": {"ticket_id": {"type": "integer", "description": "ID för helpdesk.ticket"}, "stage": {"type": "string", "description": "Etappens namn"}}, "required": ["ticket_id", "stage"]}</field>
+        <field name="risk_level">write</field>
+        <field name="code"><![CDATA[
+async def execute(ticket_id, stage):
+    """Sätt etapp."""
+    ok, msg = env['helpdesk.ai'].ticket_set_stage(int(ticket_id), str(stage))
+    return msg
+]]></field>
+    </record>
+
+    <!-- ── ticket_update_fields — namn/prioritet/beskrivning ────────── -->
+    <record id="tool_ticket_update_fields" model="ai.tool">
+        <field name="name">ticket_update_fields</field>
+        <field name="description">Uppdatera namn, prioritet och/eller beskrivning på ett helpdesk-ärende. Endast dessa tre fält — övriga förändringar kräver manuell hantering. Prioritetsvärden: 0 (låg), 1, 2, 3 (hög).</field>
+        <field name="parameters">{"type": "object", "properties": {"ticket_id": {"type": "integer", "description": "ID för helpdesk.ticket"}, "name": {"type": "string", "description": "nytt ärendenamn"}, "priority": {"type": "string", "description": "prioritet: 0-3"}, "description": {"type": "string", "description": "ny beskrivning (HTML)"}}, "required": ["ticket_id"]}</field>
+        <field name="risk_level">write</field>
+        <field name="code"><![CDATA[
+async def execute(ticket_id, name=None, priority=None, description=None):
+    """Uppdatera ärendefält."""
+    ok, msg = env['helpdesk.ai'].ticket_update_fields(
+        int(ticket_id), name=name, priority=priority,
+        description=description)
+    return msg
+]]></field>
+    </record>
+
+    <!-- ── ticket_add_message — posta i chatter ────────────────────── -->
+    <record id="tool_ticket_add_message" model="ai.tool">
+        <field name="name">ticket_add_message</field>
+        <field name="description">Posta ett meddelande i ett helpdesk-ärendes chatter. Använd för att dokumentera vad som gjordes, fråga kunden något, eller lämna en intern notering. Meddelandet syns i ärendets historik.</field>
+        <field name="parameters">{"type": "object", "properties": {"ticket_id": {"type": "integer", "description": "ID för helpdesk.ticket"}, "body": {"type": "string", "description": "meddelandetext (HTML eller ren text)"}}, "required": ["ticket_id", "body"]}</field>
+        <field name="risk_level">write</field>
+        <field name="code"><![CDATA[
+async def execute(ticket_id, body):
+    """Posta meddelande."""
+    ok, msg = env['helpdesk.ai'].ticket_add_message(int(ticket_id), body)
+    return msg
+]]></field>
+    </record>
+
+</odoo>

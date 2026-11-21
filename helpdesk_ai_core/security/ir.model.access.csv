@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_helpdesk_ai_tool_user,helpdesk_ai_core.ai.tool.user,ai_agent_core.model_ai_tool,base.group_user,1,0,0,0
+access_helpdesk_ai_tool_system,helpdesk_ai_core.ai.tool.system,ai_agent_core.model_ai_tool,base.group_system,1,1,1,1
+access_helpdesk_ai_coworker_user,helpdesk_ai_core.ai.coworker.user,ai_agent_core.model_ai_coworker,base.group_user,1,0,0,0
+access_helpdesk_ai_coworker_system,helpdesk_ai_core.ai.coworker.system,ai_agent_core.model_ai_coworker,base.group_system,1,1,1,1
+access_helpdesk_ai_inittype_user,helpdesk_ai_core.ai.coworker.init_type.user,ai_agent_core.model_ai_coworker_init_type,base.group_user,1,0,0,0
+access_helpdesk_ai_inittype_system,helpdesk_ai_core.ai.coworker.init_type.system,ai_agent_core.model_ai_coworker_init_type,base.group_system,1,1,1,1
+access_helpdesk_ai_session_user,helpdesk_ai_core.ai.coworker.session.user,ai_agent_core.model_ai_coworker_session,base.group_user,1,0,0,0
+access_helpdesk_ai_session_system,helpdesk_ai_core.ai.coworker.session.system,ai_agent_core.model_ai_coworker_session,base.group_system,1,1,1,1
