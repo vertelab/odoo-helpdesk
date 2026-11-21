@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- ════════════════════════════════════════════════════════════════
-         Helpdesk — supportmedarbetare (helpdesk_ai_core).
+         Helpdesk — supportmedarbetare (helpdesk_ai).
 
          Mönstret är project_ai:s coworker: en supervisor som äger
          arbetsflödet och delegerar specialistarbete. Här finns ingen
@@ -59,14 +59,14 @@ Arbetsregler:
         <field name="hitl_threshold">always</field>
         <field name="orchestration_mode">supervisor</field>
         <field name="tool_ids" eval="[(6, 0, [
-            ref('helpdesk_ai_core.tool_ticket_get'),
-            ref('helpdesk_ai_core.tool_ticket_set_stage'),
-            ref('helpdesk_ai_core.tool_ticket_update_fields'),
-            ref('helpdesk_ai_core.tool_ticket_add_message'),
+            ref('helpdesk_ai.tool_ticket_get'),
+            ref('helpdesk_ai.tool_ticket_set_stage'),
+            ref('helpdesk_ai.tool_ticket_update_fields'),
+            ref('helpdesk_ai.tool_ticket_add_message'),
         ])]"/>
         <field name="skill_ids" eval="[(6, 0, [
-            ref('helpdesk_ai_core.skill_cost_context'),
-            ref('helpdesk_ai_core.skill_ticket_handling'),
+            ref('helpdesk_ai.skill_cost_context'),
+            ref('helpdesk_ai.skill_ticket_handling'),
         ])]"/>
         <field name="example_prompts">
 - "Visa ärende 42"

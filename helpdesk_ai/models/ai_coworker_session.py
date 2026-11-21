@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Kostnadskontext på ai.coworker.session — domänfält för helpdesk.
 
-`helpdesk_ai_core`: `ticket_id` läggs via arv i bryggan (core förblir
+`helpdesk_ai`: `ticket_id` läggs via arv i bryggan (core förblir
 domän-rent). `partner_id`/`pi_session_id`/`cost_context_confirmed` ligger
 i ai_agent_core (res.partner = basmodul).
 
@@ -89,7 +89,7 @@ class AICoworkerSessionHelpdesk(models.Model):
         return super()._capture_context(object_ref=object_ref)
 
     def _session_capture_context(self):
-        """Core-hook: härled partner via resolver-strategin (helpdesk_ai_core).
+        """Core-hook: härled partner via resolver-strategin (helpdesk_ai).
 
         Självständig (anropar strategin direkt) så den fungerar även om
         coworkerns `cost_context_partner_strategy` inte satts än.

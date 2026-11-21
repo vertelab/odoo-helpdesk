@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!--
-        Skills för helpdesk-medarbetaren (helpdesk_ai_core).
+        Skills för helpdesk-medarbetaren (helpdesk_ai).
 
         Mönstret är project_ai: skillen äger OMDÖMET (hur ett ärende
         hanteras), verktygen äger mekaniken. Ingen domän nämns i
